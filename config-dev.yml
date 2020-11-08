@@ -1,2 +1,2 @@
 config:
-  log: "springcloud-config,测试环境，"
+  log: "springcloud-config,test，version:1"
