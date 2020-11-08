@@ -1,0 +1,32 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: payment_route
+#          uri: http://localhost:8003
+          uri: lb://CLOUD-PROVIDE-SERVICE
+          predicates:
+            - Path=/payment/get/**
+
+        - id: payment_route2
+#          uri: http://localhost:8003
+          uri: lb://CLOUD-PROVIDE-SERVICE
+          predicates:
+            - Path=/payment/discovery/**
+#            - After=2020-11-04T18:32:04.138+08:00[Asia/Shanghai]
+#           curl http://localhost:9527/payment/discovery/ -H "X-Request-id:1"
+#            - Header=X-Request-Id, \d+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
